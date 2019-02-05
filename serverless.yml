@@ -1,0 +1,17 @@
+service: image-recognition
+
+frameworkVersion: ">=1.36.3 <2.0.0"
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: ap-northeast-1
+  stage: dev
+
+functions:
+  currentTime:
+    handler: handler.endpoint
+    events:
+      - http:
+          path: ping
+          method: get
