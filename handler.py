@@ -1,16 +1,18 @@
+import os
 import json
-import datetime
+import boto3
 
 
 def endpoint(event, context):
-    current_time = datetime.datetime.now().time()
-    body = {
-        "message": "Hello, the current time is " + str(current_time)
-    }
+    fileName = 'input.jpg'
+    bucket = os.environ['BUCKET']
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
+    client = boto3.client('rekognition')
 
+    response = client.detect_labels(Image={'S3Object': {'Bucket': bucket, 'Name': fileName}})
+
+    print('Detected labels for ' + fileName)
     return response
+
+    # for label in response['Labels']:
+    #     print(label['Name'] + ' : ' + str(label['Confidence']))

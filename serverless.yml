@@ -15,9 +15,13 @@ provider:
       Action:
         - s3:GetObject
       Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+    - Effect: Allow
+      Action:
+        - rekognition:DetectLabels
+      Resource: "*"
 
 functions:
-  currentTime:
+  recognizeUpdatedImages:
     handler: handler.endpoint
     events:
       - http:
