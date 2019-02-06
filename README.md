@@ -1,3 +1,5 @@
+ServerlessからAWS Recognitionを叩く。
+
 # Deploy
 
 ```bash

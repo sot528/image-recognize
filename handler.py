@@ -1,5 +1,4 @@
 import os
-import json
 import boto3
 
 
@@ -9,10 +8,14 @@ def endpoint(event, context):
 
     client = boto3.client('rekognition')
 
+    # ラベル取得
     response = client.detect_labels(Image={'S3Object': {'Bucket': bucket, 'Name': fileName}})
+
+    # テキスト認識(English only)
+    # response = client.detect_text(Image={'S3Object': {'Bucket': bucket, 'Name': fileName}})
+
+    # 不適切な画像のラベルを取得
+    # response = client.detect_moderation_labels(Image={'S3Object': {'Bucket': bucket, 'Name': fileName}})
 
     print('Detected labels for ' + fileName)
     return response
-
-    # for label in response['Labels']:
-    #     print(label['Name'] + ' : ' + str(label['Confidence']))
